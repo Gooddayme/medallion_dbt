@@ -1,0 +1,9 @@
+{
+	"name": "luckydf1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f5d9daf8-e081-4152-b6f8-69012dfa4033",
+		"tenantId": "250c2aae-9c47-402b-baf8-0d655ca8fcb6"
+	}
+}
