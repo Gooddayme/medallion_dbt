@@ -152,9 +152,16 @@
 				}
 			},
 			{
-				"name": "Job1",
+				"name": "data transformation",
 				"type": "DatabricksJob",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "foreachtable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -162,7 +169,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"jobId": "1105222037500646"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": [],
