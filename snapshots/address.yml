@@ -1,0 +1,18 @@
+
+version: 2
+
+snapshots:
+  - name: address_snapshot
+    columns:
+      - name: AddressID
+        description: The natural key of the customer
+        tests:
+          - not_null
+      - name: dbt_valid_from
+      - name: dbt_valid_to
+    tests:
+      - no_overlapping_scd2:
+          key_column: AddressID
+          valid_from_col: dbt_valid_from
+          valid_to_col: dbt_valid_to
+
