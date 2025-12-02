@@ -1,0 +1,139 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "luckydf1"
+		},
+		"SqlServerOnPrem_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServerOnPrem'"
+		},
+		"sqlserverlinkedService1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sqlserverlinkedService1'"
+		},
+		"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+			"type": "string",
+			"defaultValue": "https://luckysa1.blob.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://saforsqldb.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1111-214014-4kzrnxl2"
+		},
+		"SqlServerOnPrem_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "YIN"
+		},
+		"SqlServerOnPrem_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorksLT2022"
+		},
+		"SqlServerOnPrem_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sa"
+		},
+		"sqlserverlinkedService1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "luckysqlserver.database.windows.net"
+		},
+		"sqlserverlinkedService1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "luckytestdb"
+		},
+		"sqlserverlinkedService1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "luckysa"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "luckydf1_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"sqlserverlinkedService1_password": {
+						"value": "[parameters('sqlserverlinkedService1_password')]"
+					},
+					"SqlServerOnPrem_password": {
+						"value": "[parameters('SqlServerOnPrem_password')]"
+					},
+					"AzureBlobStorage1_properties_typeProperties_serviceEndpoint": {
+						"value": "[parameters('AzureBlobStorage1_properties_typeProperties_serviceEndpoint')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+					},
+					"sqlserverlinkedService1_properties_typeProperties_server": {
+						"value": "[parameters('sqlserverlinkedService1_properties_typeProperties_server')]"
+					},
+					"sqlserverlinkedService1_properties_typeProperties_database": {
+						"value": "[parameters('sqlserverlinkedService1_properties_typeProperties_database')]"
+					},
+					"sqlserverlinkedService1_properties_typeProperties_userName": {
+						"value": "[parameters('sqlserverlinkedService1_properties_typeProperties_userName')]"
+					},
+					"SqlServerOnPrem_properties_typeProperties_server": {
+						"value": "[parameters('SqlServerOnPrem_properties_typeProperties_server')]"
+					},
+					"SqlServerOnPrem_properties_typeProperties_database": {
+						"value": "[parameters('SqlServerOnPrem_properties_typeProperties_database')]"
+					},
+					"SqlServerOnPrem_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerOnPrem_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "luckydf1_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'luckydf1_ArmTemplate_0')]"
+			]
+		}
+	]
+}
